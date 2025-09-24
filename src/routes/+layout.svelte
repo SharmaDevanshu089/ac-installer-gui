@@ -13,7 +13,7 @@
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1">
-        <li><a href="#" on:click={openGithub()}>Github</a></li>
+        <li><a href="#" on:click={() => openGithub()}>Github</a></li>
       </ul>
     </div>
   </header>
