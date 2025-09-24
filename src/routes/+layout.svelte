@@ -1,7 +1,12 @@
 <script>
   import "../app.css";
+  import { open } from '@tauri-apps/api/shell';
+
+
+  
   async function openGithub() {
     await open("https://github.com/SharmaDevanshu089/ac-installer-gui");
+    await console.log("The Button is Pressed");
   }
 </script>
 
