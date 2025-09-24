@@ -1,7 +1,7 @@
 <script>
   import "../app.css";
   async function openGithub() {
-    await open("https://github.com/SharmaDevanshu089/ac-Installer");
+    await open("https://github.com/SharmaDevanshu089/ac-installer-gui");
   }
 </script>
 
