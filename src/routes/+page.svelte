@@ -8,11 +8,15 @@
 	// --- Placeholder data ---
 	// In a real app, you'd pass this data in as props
 	let version = 'Getting Info';
-	let fileName = '--------';
+	let fileName = '---------';
 	let lastUpdated = '---------';
 
+  async function initialiseReleaseData() {
+    console.log("Initialising Release Data;")
+    isModalOpen = true;
+  }
 	// --- Functions to control modal visibility ---
-	const openModal = () => (isModalOpen = true);
+	const openModal =() => initialiseReleaseData();
 	const closeModal = () => (isModalOpen = false);
 	const handleInstall = () => {
 		console.log('Installation confirmed!');
