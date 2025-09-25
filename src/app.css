@@ -5,3 +5,7 @@ body::-webkit-scrollbar {
 body {
   scrollbar-width: none; /* hides scrollbar but keeps scrolling */
 }
+.navbar *{
+  -webkit-app-region: drag;
+  cursor: grab !important;
+}

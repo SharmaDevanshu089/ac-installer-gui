@@ -1,7 +1,6 @@
 <script>
   import "../app.css";
   import { openUrl } from '@tauri-apps/plugin-opener';
-  
   async function openGithub() {
     await openUrl("https://github.com/SharmaDevanshu089/ac-installer-gui");
     // await console.log("The Button is Pressed");
@@ -12,10 +11,10 @@
   
   <header class="navbar bg-base-200">
     <div class="flex-1">
-      <a class="btn btn-ghost text-xl" href="/">Autocrate</a>
+      <a class="btn btn-ghost text-xl" href="/" style="-webkit-app-region: drag;">Autocrate</a>
     </div>
     <div class="flex-none">
-      <ul class="menu menu-horizontal px-1">
+      <ul class="menu menu-horizontal px-1" style="-webkit-app-region: no-drag;">
         <li><a href="#" on:click={() => openGithub()}>Github</a></li>
       </ul>
     </div>
