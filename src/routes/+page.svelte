@@ -1,12 +1,8 @@
 <script lang="ts">
-  // 1. Import the animation functions from Svelte
   import { fly, fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
 	let isModalOpen = false;
-
-	// --- Placeholder data ---
-	// In a real app, you'd pass this data in as props
 	let version = 'Getting Info';
 	let fileName = '---------';
 	let lastUpdated = '---------';
@@ -15,12 +11,11 @@
     console.log("Initialising Release Data;")
     isModalOpen = true;
   }
-	// --- Functions to control modal visibility ---
 	const openModal =() => initialiseReleaseData();
 	const closeModal = () => (isModalOpen = false);
 	const handleInstall = () => {
 		console.log('Installation confirmed!');
-		// Add your installation logic here
+		//to be added 
 		closeModal();
 	};
 </script>
@@ -102,8 +97,6 @@
 {/if}
 
 <style>
-	/* DaisyUI's backdrop provides a background color, 
-     we can add a blur filter for the desired effect */
 	.modal-backdrop {
 		background-color: hsl(var(--b2, var(--b1)) / 0.6); /* Use daisyUI theme color with opacity */
 		backdrop-filter: blur(5px);

@@ -16,8 +16,7 @@ use std::process::ExitStatus;
 use zip::ZipArchive;
 
 const DEBUG: bool = false;
-const URL: &str =
-    "https://github.com/SharmaDevanshu089/AutoCrate/releases/download/v0.9.9/v0.9.9.zip";
+const URL: &str = "https://api.github.com/repos/SharmaDevanshu089/AutoCrate/releases/latest";
 const SRS: &str =
     "There has been a Serious error with the program please use a different version. Crashing";
 const LOGFILE: &str = "install.log";
@@ -174,4 +173,18 @@ fn log_error(text: &str) {
 }
 pub fn hello() {
     println!("Hello World");
+}
+async fn request() -> String {
+    let Client = Client::new();
+    let github_said = Client
+        .get(URL)
+        .header("User-Agent", "AutoCrate Installer")
+        .send()
+        .await
+        .expect("Error Happens");
+    let release = github_said
+        .json::<ReleaseInfo>()
+        .await
+        .expect("Error Occurs");
+    return release.tag_name;
 }

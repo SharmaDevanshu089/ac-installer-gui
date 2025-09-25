@@ -30,7 +30,7 @@
   </main>
 
 <footer class="footer footer-center py-4 bg-base-200 text-base-content relative">
-  <p class="mx-auto">Copyright © 2025 - All right reserved by Devanshu</p>
+  <p class="mx-auto">Copyright © 2025 - Made With 🖤 By Devanshu</p>
   <a 
     href="#" 
     on:click={() => openGithub()} 
