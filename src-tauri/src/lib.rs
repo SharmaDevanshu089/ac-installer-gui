@@ -1,6 +1,8 @@
 use directories;
 use reqwest;
 use reqwest::blocking::Response;
+use reqwest::Client;
+use serde::Deserialize;
 use std::arch::x86_64::_MM_FROUND_NO_EXC;
 use std::env;
 use std::fs;
@@ -21,6 +23,14 @@ const SRS: &str =
     "There has been a Serious error with the program please use a different version. Crashing";
 const LOGFILE: &str = "install.log";
 const EXECUTIVE_NAME: &str = "USE_INSTALLER_FIRST";
+
+#[derive(Deserialize, Debug)]
+pub struct ReleaseInfo {
+    pub tag_name: String,
+    pub published_at: String,
+    pub name: Option<String>,
+}
+
 fn copy_to_location(mut old_binary: zip::read::ZipFile<'_, File>) {
     let appdata =
         env::var("APPDATA").expect("Unable to get a envirment variable, i hope yours is supported");

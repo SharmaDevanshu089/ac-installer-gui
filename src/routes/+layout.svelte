@@ -20,7 +20,7 @@
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1" style="-webkit-app-region: no-drag;">
-        <li><button href="#" on:click={() => initiateClose()} >Close</button></li>
+        <li><button on:click={() => initiateClose()} >Close</button></li>
       </ul>
     </div>
   </header>
@@ -31,13 +31,12 @@
 
 <footer class="footer footer-center py-4 bg-base-200 text-base-content relative">
   <p class="mx-auto">Copyright © 2025 - Made With 🖤 By Devanshu</p>
-  <a 
-    href="#" 
+  <button
     on:click={() => openGithub()} 
     class="btn btn-link absolute right-4 top-1/2 -translate-y-1/2"
   >
     Github
-  </a>
+</button>
 </footer>
 
 
