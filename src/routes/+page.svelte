@@ -3,8 +3,7 @@
   import { fly, fade } from 'svelte/transition';
 
   function handleInstallClick() {
-    // In the future, your Rust installation logic would be called here
-    alert('Install button clicked!');
+    my_modal_2.showModal()
   }
 </script>
 
@@ -35,3 +34,12 @@
 
   </div>
 </div>
+<dialog id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Hello!</h3>
+    <p class="py-4">Press ESC key or click outside to close</p>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
