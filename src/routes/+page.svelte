@@ -7,9 +7,9 @@
 
 	// --- Placeholder data ---
 	// In a real app, you'd pass this data in as props
-	let version = 'v1.2.3';
-	let fileName = 'installer_x64.exe';
-	let lastUpdated = '2025-09-25';
+	let version = 'Getting Info';
+	let fileName = '--------';
+	let lastUpdated = '---------';
 
 	// --- Functions to control modal visibility ---
 	const openModal = () => (isModalOpen = true);
