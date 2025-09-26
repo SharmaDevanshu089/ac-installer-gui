@@ -1,8 +1,6 @@
 use directories;
 use reqwest;
 use reqwest::blocking::Response;
-use reqwest::Client;
-use serde::Deserialize;
 use std::arch::x86_64::_MM_FROUND_NO_EXC;
 use std::env;
 use std::fs;
@@ -18,18 +16,10 @@ use std::process::ExitStatus;
 use zip::ZipArchive;
 
 const DEBUG: bool = false;
-const URL: &str = "https://api.github.com/repos/SharmaDevanshu089/AutoCrate/releases/latest";
 const SRS: &str =
     "There has been a Serious error with the program please use a different version. Crashing";
 const LOGFILE: &str = "install.log";
 const EXECUTIVE_NAME: &str = "USE_INSTALLER_FIRST";
-
-#[derive(Deserialize, Debug)]
-pub struct ReleaseInfo {
-    pub tag_name: String,
-    pub published_at: String,
-    pub name: Option<String>,
-}
 
 fn copy_to_location(mut old_binary: zip::read::ZipFile<'_, File>) {
     let appdata =
@@ -130,7 +120,7 @@ fn check_cargo() {
     download_zip();
 }
 fn download_zip() {
-    let url = URL;
+    let url = "To be check";
     let mut path = get_directories("tmp");
     create_dir_all(path.clone()).expect("Unable to Create Parent Directiory");
     path.push("download.zip");
@@ -183,18 +173,4 @@ fn log_error(text: &str) {
 }
 pub fn hello() {
     println!("Hello World");
-}
-async fn request() -> String {
-    let Client = Client::new();
-    let github_said = Client
-        .get(URL)
-        .header("User-Agent", "AutoCrate Installer")
-        .send()
-        .await
-        .expect("Error Happens");
-    let release = github_said
-        .json::<ReleaseInfo>()
-        .await
-        .expect("Error Occurs");
-    return release.tag_name;
 }

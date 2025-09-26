@@ -1,6 +1,7 @@
 <script lang="ts">
   import { fly, fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
+    import { invoke } from '@tauri-apps/api/core';
 
 	let isModalOpen = false;
 	let version = 'Getting Info';
@@ -10,6 +11,7 @@
   async function initialiseReleaseData() {
     console.log("Initialising Release Data;")
     isModalOpen = true;
+	setReleaseData();
   }
 	const openModal =() => initialiseReleaseData();
 	const closeModal = () => (isModalOpen = false);
@@ -18,6 +20,11 @@
 		//to be added 
 		closeModal();
 	};
+	async function setReleaseData(){
+	const releaseData = await invoke('get_release_data');
+	version = releaseData.tag_name;
+	lastUpdated = releaseData.published_at;
+	}
 </script>
 
 <div class="hero min-h-full">
