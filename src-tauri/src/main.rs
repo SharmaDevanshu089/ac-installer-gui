@@ -1,5 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+// TODO: Add Internet Check
+
 mod api;
 fn main() {
     tauri::Builder::default()

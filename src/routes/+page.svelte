@@ -7,14 +7,17 @@
 	let version = 'Getting Info';
 	let fileName = '---------';
 	let lastUpdated = '---------';
+	let installButton: HTMLButtonElement;
 
   async function initialiseReleaseData() {
+	installButton.classList.add('loading','loading-spinner','text-primary');
     console.log("Initialising Release Data;")
     isModalOpen = true;
 	setReleaseData();
+
   }
 	const openModal =() => initialiseReleaseData();
-	const closeModal = () => (isModalOpen = false);
+	const closeModal = () => initialseCloseModal();
 	const handleInstall = () => {
 		console.log('Installation confirmed!');
 		//to be added 
@@ -25,6 +28,10 @@
 	version = releaseData.tag_name;
 	lastUpdated = releaseData.published_at;
 	}
+	function initialseCloseModal(){
+		isModalOpen = false;
+		installButton.classList.remove('loading','loading-spinner','text-primary');
+}
 </script>
 
 <div class="hero min-h-full">
@@ -45,7 +52,7 @@
         <p>The easiest way to install and manage your AutoCrate projects.</p>
         
         <div class="card-actions mt-4" in:fade={{ duration: 500, delay: 600 }}>
-          <button class="btn btn-primary" on:click={openModal}>
+          <button class="btn btn-primary" on:click={openModal} bind:this={installButton}>
             Install Now
           </button>
         </div>
