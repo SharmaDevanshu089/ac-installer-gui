@@ -28,6 +28,7 @@
 	async function setReleaseData(){
 	const releaseData = await invoke('get_release_data');
 	version = releaseData.tag_name;
+	fileName = releaseData.name;
 	lastUpdated = releaseData.published_at;
 	}
 	function initialseCloseModal(){
