@@ -8,6 +8,8 @@
 	let fileName = '---------';
 	let lastUpdated = '---------';
 	let installButton: HTMLButtonElement;
+	// let spanForLoading;
+	// spanForLoading.classList.add('loading','loading-spinner','text-primary');
 
   async function initialiseReleaseData() {
 	installButton.classList.add('loading','loading-spinner','text-primary');

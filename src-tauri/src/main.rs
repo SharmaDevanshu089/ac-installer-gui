@@ -1,6 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 // TODO: Add Internet Check
+// TODO: Add Loading when Internet Connecting in fetch function
 
 mod api;
 fn main() {
