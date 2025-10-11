@@ -8,6 +8,7 @@
 	let fileName = '---------';
 	let lastUpdated = '---------';
 	let installButton: HTMLButtonElement;
+	let conformInstallButtton: HTMLButtonElement;
 	// let spanForLoading;
 	// spanForLoading.classList.add('loading','loading-spinner','text-primary');
 
@@ -30,6 +31,7 @@
 	version = releaseData.tag_name;
 	fileName = releaseData.name;
 	lastUpdated = releaseData.published_at;
+	conformInstallButtton.classList.remove('btn-disabled');
 	}
 	function initialseCloseModal(){
 		isModalOpen = false;
@@ -80,7 +82,7 @@
 					<span class="font-mono text-accent">{version}</span>
 				</div>
 				<div class="flex items-center justify-between gap-4">
-					<span class="font-semibold">File Name:</span>
+					<span class="font-semibold">Update Name:</span>
 					<span class="truncate font-mono text-accent" title={fileName}>{fileName}</span>
 				</div>
 				<div class="flex items-center justify-between gap-4">
@@ -92,7 +94,7 @@
 			<div class="modal-action mt-6">
 				<button class="btn" on:click={closeModal}>Cancel</button>
 
-				<button class="btn btn-primary" on:click={handleInstall}>
+				<button class="btn btn-primary btn-disabled" on:click={handleInstall} bind:this={conformInstallButtton}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 20 20"
