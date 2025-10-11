@@ -3,11 +3,19 @@ use serde::{Deserialize, Serialize};
 
 const URL: &str = "https://api.github.com/repos/SharmaDevanshu089/AutoCrate/releases/latest";
 
-#[derive(Deserialize, Serialize, Debug)] // Add Serialize here
+#[derive(Deserialize, Serialize, Debug)]
+pub struct AssetInfo {
+    pub name: String,
+    pub content_type: String,
+    pub browser_download_url: String,
+}
+
+#[derive(Deserialize, Serialize, Debug)]
 pub struct ReleaseInfo {
     pub tag_name: String,
     pub published_at: String,
     pub name: Option<String>,
+    pub assets: Vec<AssetInfo>,
 }
 
 #[tauri::command]
