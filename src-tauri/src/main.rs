@@ -2,6 +2,8 @@
 
 // TODO: Add Internet Check
 // TODO: Add Loading when Internet Connecting in fetch function
+// TODO: Add Caching for the API Connection.
+// TODO: Add a Browser Donwload option
 
 mod api;
 fn main() {

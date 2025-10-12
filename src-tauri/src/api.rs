@@ -11,6 +11,14 @@ pub struct AssetInfo {
 }
 
 #[derive(Deserialize, Serialize, Debug)]
+pub struct ReturnData {
+    pub tag_name: String,
+    pub published_at: String,
+    pub name: Option<String>,
+    pub browser_download_url: String,
+}
+
+#[derive(Deserialize, Serialize, Debug)]
 pub struct ReleaseInfo {
     pub tag_name: String,
     pub published_at: String,
