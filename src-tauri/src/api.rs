@@ -2,6 +2,7 @@ use reqwest::Client;
 use serde::{Deserialize, Serialize};
 
 const URL: &str = "https://api.github.com/repos/SharmaDevanshu089/AutoCrate/releases/latest";
+const DEBUG: bool = true;
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct AssetInfo {
@@ -27,7 +28,7 @@ pub struct ReleaseInfo {
 }
 
 #[tauri::command]
-pub async fn get_release_data() -> Result<ReleaseInfo, String> {
+pub async fn get_release_data() -> Result<ReturnData, String> {
     let client = Client::new();
     let github_said = client
         .get(URL)
@@ -38,5 +39,22 @@ pub async fn get_release_data() -> Result<ReleaseInfo, String> {
         .json::<ReleaseInfo>()
         .await
         .map_err(|e| e.to_string())?;
-    Ok(github_said)
+    if let Some(selected_installer) = github_said
+        .assets
+        .iter()
+        .find(|asset| asset.content_type == "application/x-msdownload")
+    {
+        let data_for_frontend = ReturnData {
+            name: github_said.name.clone(),
+            tag_name: github_said.tag_name.clone(),
+            published_at: github_said.published_at.clone(),
+            browser_download_url: selected_installer.browser_download_url.clone(),
+        };
+        if DEBUG {
+            println!("{:#?}", github_said.assets.get(1));
+        }
+        Ok(data_for_frontend)
+    } else {
+        panic!();
+    }
 }

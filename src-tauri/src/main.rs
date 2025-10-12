@@ -4,6 +4,9 @@
 // TODO: Add Loading when Internet Connecting in fetch function
 // TODO: Add Caching for the API Connection.
 // TODO: Add a Browser Donwload option
+// TODO: Add edge case handling where there are no assets
+// TODO: Add edge case for handling multiple executable in release
+// TODO: Deal with panic in api or it is given above
 
 mod api;
 fn main() {

@@ -1,3 +1,5 @@
+// This is Legacy code from old command line installer.
+
 use directories;
 use reqwest;
 use reqwest::blocking::Response;
