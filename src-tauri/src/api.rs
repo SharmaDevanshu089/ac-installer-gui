@@ -1,6 +1,7 @@
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
+use tauri::State;
 
 const URL: &str = "https://api.github.com/repos/SharmaDevanshu089/AutoCrate/releases/latest";
 const DEBUG: bool = false;
@@ -33,7 +34,7 @@ pub struct ReleaseInfo {
 }
 
 #[tauri::command]
-pub async fn get_release_data() -> Result<ReturnData, String> {
+pub async fn get_release_data(state: tauri::State<'_, AppState>) -> Result<ReturnData, String> {
     let client = Client::new();
     let github_said = client
         .get(URL)
@@ -55,6 +56,7 @@ pub async fn get_release_data() -> Result<ReturnData, String> {
             published_at: github_said.published_at.clone(),
             browser_download_url: selected_installer.browser_download_url.clone(),
         };
+        *state.download_url.lock().unwrap() = Some(data_for_frontend.browser_download_url.clone());
         if DEBUG {
             println!("{}", data_for_frontend.browser_download_url);
         }
