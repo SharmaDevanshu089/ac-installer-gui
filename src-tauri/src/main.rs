@@ -12,6 +12,9 @@ mod api;
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .manage(api::AppState {
+            download_url: Default::default(),
+        })
         .invoke_handler(tauri::generate_handler![api::get_release_data])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -1,8 +1,13 @@
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
+use std::sync::Mutex;
 
 const URL: &str = "https://api.github.com/repos/SharmaDevanshu089/AutoCrate/releases/latest";
-const DEBUG: bool = true;
+const DEBUG: bool = false;
+
+pub struct AppState {
+    pub download_url: Mutex<Option<String>>,
+}
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct AssetInfo {
