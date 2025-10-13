@@ -51,7 +51,7 @@ pub async fn get_release_data() -> Result<ReturnData, String> {
             browser_download_url: selected_installer.browser_download_url.clone(),
         };
         if DEBUG {
-            println!("{:#?}", github_said.assets.get(1));
+            println!("{}", data_for_frontend.browser_download_url);
         }
         Ok(data_for_frontend)
     } else {

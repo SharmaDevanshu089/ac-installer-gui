@@ -22,9 +22,8 @@
 	const openModal =() => initialiseReleaseData();
 	const closeModal = () => initialseCloseModal();
 	const handleInstall = () => {
-		console.log('Installation confirmed!');
-		//to be added 
 		closeModal();
+		initiateInstallModal();
 	};
 	async function setReleaseData(){
 	const releaseData = await invoke('get_release_data');
@@ -36,7 +35,10 @@
 	function initialseCloseModal(){
 		isModalOpen = false;
 		installButton.classList.remove('loading','loading-spinner','text-primary');
-}
+	}
+	function initiateInstallModal(){
+		console.log("Install Modal Initiate");
+	}
 </script>
 
 <div class="hero min-h-full">
