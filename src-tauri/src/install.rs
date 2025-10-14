@@ -10,7 +10,10 @@ pub fn get_directories(type_of: &str) -> PathBuf {
     let mut out = PathBuf::new();
     match type_of {
         "tmp" => out = temp_path.to_owned(),
-        _ => log_error(&error_fix),
+        //jugad to be fixed
+        _ => {
+            let a = 1;
+        }
     }
     if DEBUG {
         let tmp = out.clone();
