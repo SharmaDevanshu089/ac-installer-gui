@@ -7,8 +7,10 @@
 // TODO: Add edge case handling where there are no assets
 // TODO: Add edge case for handling multiple executable in release
 // TODO: Deal with panic in api or it is given above
+// TODO: Add ability to change the installation directory
 
 mod api;
+mod install;
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
