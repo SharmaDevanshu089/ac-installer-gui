@@ -8,6 +8,7 @@
 // TODO: Add edge case for handling multiple executable in release
 // TODO: Deal with panic in api or it is given above
 // TODO: Add ability to change the installation directory
+// TODO: Use Streaming instead of downloading to ram
 
 mod api;
 mod install;
