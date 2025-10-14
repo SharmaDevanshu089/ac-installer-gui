@@ -1,6 +1,7 @@
 use crate::api;
 use tokio;
 
+const DEBUG: bool = true;
 pub fn get_directories(type_of: &str) -> PathBuf {
     let app =
         directories::ProjectDirs::from("io", "sharmadevanshu089", "autocrate-install").expect(SRS);
