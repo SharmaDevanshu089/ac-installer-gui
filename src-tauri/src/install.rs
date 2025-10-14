@@ -1,10 +1,11 @@
 use crate::api;
+use std::path::PathBuf;
 use tokio;
 
 const DEBUG: bool = true;
 pub fn get_directories(type_of: &str) -> PathBuf {
     let app =
-        directories::ProjectDirs::from("io", "sharmadevanshu089", "autocrate-install").expect(SRS);
+        directories::ProjectDirs::from("io", "sharmadevanshu089", "autocrate-install").unwrap();
     let temp_path = app.cache_dir();
     let error_fix = format!("get directories was called with {}", type_of);
     let mut out = PathBuf::new();
