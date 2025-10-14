@@ -1,4 +1,5 @@
 use crate::api;
+use env;
 use std::path::PathBuf;
 use tokio;
 
@@ -21,4 +22,13 @@ pub fn get_directories(type_of: &str) -> PathBuf {
         println!("GETDIRECTORIES RESPONDED : {}", tmp.to_string_lossy())
     }
     return out;
+}
+#[tauri::command]
+pub fn install_binary() {
+    let appdata =
+        env::var("APPDATA").expect("Unable to get a envirment variable, i hope yours is supported");
+    let mut appdata_path = PathBuf::from(appdata.clone());
+    if DEBUG {
+        println!("{}", appdata_path.to_string_lossy());
+    }
 }

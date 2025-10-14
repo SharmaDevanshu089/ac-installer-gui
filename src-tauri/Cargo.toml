@@ -21,3 +21,4 @@ reqwest = { version = "0.12.23", features = ["blocking", "json"] }
 directories = "6.0.0"
 zip = "4.6.0"
 tokio = "1.47.1"
+env = "1.0.1"
