@@ -13,6 +13,7 @@
     let isInstalling = false;
     let errorMessage = '';
 	let currentMessage = '';
+	const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 	// let spanForLoading;
 	// spanForLoading.classList.add('loading','loading-spinner','text-primary');
 
@@ -40,10 +41,15 @@
 		isModalOpen = false;
 		installButton.classList.remove('loading','loading-spinner','text-primary');
 	}
-	function initiateInstallModal(){
+	async function initiateInstallModal(){
 		console.log("Install Modal Initiate");
 		isDownloading = true;
 		currentMessage = "Donwloading AutoCrate";
+		await wait(5000);
+		console.log("5 seconds passed. Switching state...");
+        isDownloading = false;
+        isInstalling = true;
+        currentMessage = "Installing...";
 	}
 </script>
 
@@ -122,88 +128,25 @@
 		</div>
 	</dialog>
 {/if}
-{#if isDownloading || isInstalling}
-    <div class="modal-overlay">
-        <div class="modal-content">
-            <div class="spinner-container">
-                <div class="spinner" class:downloading={isDownloading} class:installing={isInstalling}></div>
-            </div>
+<dialog class="modal modal-bottom sm:modal-middle" open={isDownloading || isInstalling}>
+    <div class="modal-box text-center">
+        <span class="loading loading-spinner loading-lg mb-4"
+              class:text-primary={isDownloading}
+              class:text-success={isInstalling}
+        ></span>
 
-            {#key currentMessage}
-                <p in:fly={{ y: 20, duration: 300, delay: 300 }}>
-                    {currentMessage}
-                </p>
-            {/key}
-        </div>
+        {#key currentMessage}
+            <p class="font-semibold text-lg" in:fly={{ y: 20, duration: 300, delay: 300 }}>
+                {currentMessage}
+            </p>
+        {/key}
     </div>
-{/if}
+    <form method="dialog" class="modal-backdrop">
+        </form>
+</dialog>
 <style>
 	.modal-backdrop {
 		background-color: hsl(var(--b2, var(--b1)) / 0.6); /* Use daisyUI theme color with opacity */
 		backdrop-filter: blur(5px);
 	}
-	.modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.6);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
-    }
-
-    .modal-content {
-        background: white;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        overflow: hidden; /* Important for the text animation */
-    }
-
-    .spinner-container {
-        margin-bottom: 20px;
-    }
-
-    .spinner {
-        margin: 0 auto;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: 5px solid transparent;
-        /* The transition makes the change between states smooth */
-        transition: border-style 0.4s ease, border-color 0.4s ease;
-        animation: spin 1s linear infinite;
-    }
-
-    /* State 1: Downloading 🔵 */
-    .spinner.downloading {
-        border-style: dashed;
-        border-top-color: #3498db; /* Blue */
-    }
-
-    /* State 2: Installing 🟢 */
-    .spinner.installing {
-        border-style: solid;
-        border-top-color: #2ecc71; /* Green */
-        animation-duration: 0.8s; /* Speed up for a "busier" look */
-    }
-
-    p {
-        font-family: sans-serif;
-        font-size: 1.1em;
-        color: #555;
-    }
-
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
 </style>
