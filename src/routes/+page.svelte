@@ -44,7 +44,7 @@
 	async function initiateInstallModal(){
 		console.log("Install Modal Initiate");
 		isDownloading = true;
-		currentMessage = "Donwloading AutoCrate...";
+		currentMessage = "Donwloading...";
 		await console.log(invoke('download_binary'));
 		await wait(5000);
 		console.log("5 seconds passed. Switching state...");
