@@ -52,7 +52,7 @@
         currentMessage = "Installing...";
 		await wait(1000)
 		currentMessage = "Done...";
-		invoke('install_binary');
+		await console.log(invoke('download_binary'));
 	}
 </script>
 
