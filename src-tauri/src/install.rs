@@ -57,7 +57,7 @@ fn add_to_path() {
     println!("Configuring System for install.");
     let path_to_change = match env::var("Path") {
         Ok(p) => p,
-        Err(p) => {}
+        Err(p) => "Hi".to_string(),
     };
     let folder_path = app_path.to_string_lossy();
     if DEBUG {
