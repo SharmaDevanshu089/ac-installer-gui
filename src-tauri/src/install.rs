@@ -33,13 +33,15 @@ pub async fn download_binary(state: tauri::State<'_, api::AppState>) -> Result<S
         env::var("APPDATA").expect("Unable to get a envirment variable, i hope yours is supported");
     let mut appdata_path = PathBuf::from(appdata.clone());
     appdata_path.push(".autocrate");
+    std::fs::create_dir_all(appdata_path.clone());
     let autocrate_path = appdata_path.clone();
     appdata_path.push("autocrate.exe");
     if DEBUG {
         println!("{}", appdata_path.to_string_lossy());
     }
-    let url = "";
-    let response = reqwest::get(url).await.expect("Error 1");
+    let url = state.download_url.lock().unwrap().clone();
+    let uri = url.unwrap();
+    let response = reqwest::get(uri).await.expect("Error 1");
     let content = response.bytes().await.expect("Error 2");
     let mut file = File::create(appdata_path).expect("Error");
     file.write_all(&content).expect("Error 4");
