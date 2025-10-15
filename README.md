@@ -1,87 +1,191 @@
-# AutoCrate Installer GUI
+# 🚀 AutoCrate Installer GUI
 
-[![Made with Rust](https://img.shields.io/badge/Made%20with-Rust-orange.svg)](https://www.rust-lang.org/)
-[![Tauri](https://img.shields.io/badge/Tauri-v2-blue.svg)](https://tauri.app/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[
+[
+[
+[
 
-A robust, efficient, and modern desktop installer for **AutoCrate**, built with the power of Rust and a reactive SvelteKit frontend. This isn't just an installer; it's a showcase of modern desktop application architecture.
+A **modern, reactive, and cross-platform desktop installer** for the [AutoCrate CLI](https://github.com/SharmaDevanshu089/ac-installer).
+Built with **Rust + Tauri + SvelteKit + DaisyUI**, this app merges native performance with a smooth, reactive UI.
 
----
+***
 
-## Visual Demo
+## 🌟 Overview
 
-![AutoCrate Installer Demo](Screenshot.png)
+**AutoCrate Installer GUI** eliminates the need for manual terminal commands, letting users install the CLI tool with a few clicks. It automatically fetches release data from GitHub, autodetects the right binary, and guides users through a step-by-step animated installation with real-time progress.
 
----
+***
 
-## ## Core Features
+## 🧩 Core Features
 
-* **Automatic Version Fetching**: Instantly retrieves the latest release data directly from the GitHub API on launch.
-* **Smart Asset Detection**: Intelligently parses release assets to identify the correct installer binary for a seamless user experience.
-* **Minimalist & Reactive UI**: A clean, simple interface built with SvelteKit that provides all necessary information without clutter.
-* **Blazing Fast & Secure**: The performance and security of a native Rust backend with the web technologies of a modern frontend.
+### Backend (Rust + Tauri)
 
----
-
-## ## Tech Stack & Architecture
-
-This project leverages a **"Smart Backend"** architecture, where the Rust core handles all business logic, ensuring the frontend remains lean, fast, and focused purely on presentation.
-
-* **Backend**: **Rust**. Chosen for its unmatched performance, memory safety, and powerful concurrency features.
-* **Desktop Framework**: **Tauri**. Creates a lightweight, secure, and cross-platform binary by leveraging the system's native web renderer.
-* **Frontend**: **SvelteKit**. A next-generation UI framework that compiles to highly optimized vanilla JavaScript.
-* **Async Runtime**: **Tokio**. Powers all non-blocking network operations, ensuring the app UI is always fluid and responsive.
+- **Automatic Release Fetching:** Always fetches the latest version from GitHub.
+- **Smart Asset Detection:** Selects the appropriate binary by MIME type or naming.
+- **In-Memory Caching:** Reduces redundant API calls during a session for speed.
+- **Async Downloading:** Utilizes `reqwest` and `tokio` for non-blocking downloads.
+- **System Integration:** Optionally adds AutoCrate to PATH for seamless use.
 
 
+### Frontend (SvelteKit + DaisyUI)
 
----
+- **Reactive UI:** Built on Svelte’s fast reactivity to mirror backend progress instantly.
+- **Modern Design:** Uses Tailwind CSS and DaisyUI for a clean, themeable interface.
+- **Animated User Flow:** Interactive modals, progress bars, and completion visuals.
+- **Real-Time Progress:** Backend emits events directly to the UI for live updates.
+- **External Links:** Quick access to GitHub and docs via Tauri's URL APIs.
 
-## ## Key Technical Highlights
+***
 
-This project was an exercise in building robust, production-ready software. Here are some of the key architectural decisions:
+## 🧠 Technical Architecture
 
-* **🚀 In-Memory State Management**: Implemented a thread-safe, in-memory state management system using `std::sync::Mutex` and Tauri's managed state. This caches API data on launch, eliminating redundant network calls and ensuring an instantaneous user experience.
+| Layer | Technology | Responsibility |
+| :-- | :-- | :-- |
+| 🦀 Backend | Rust + Tauri | API requests, caching, file I/O, installation logic |
+| 🧩 Frontend | SvelteKit | Reactive UI, user input, event listeners |
+| 🎨 Styling | Tailwind + DaisyUI | Modern, themeable interface |
+| ⚡ Runtime | Tokio | Async networking and background tasks |
 
-* **📦 Clean Data Contracts with DTOs**: Designed a clean data pipeline where the Rust backend transforms raw API responses into a lean **D**ata **T**ransfer **O**bject (DTO). This minimizes the data sent to the frontend and fully decouples the backend logic from the UI implementation.
+**Flow:**
+GitHub API → Rust (`reqwest` + async/await)
+↓
+AppState (Mutex Cache)
+↓
+Tauri Commands ↔ SvelteKit invoke()
+↓
+Live UI Updates via Events
 
-* **⚡ Asynchronous Backend**: All network requests and potential long-running operations are handled asynchronously using Rust's `async/await` syntax, guaranteeing the UI never freezes.
+***
 
-* **🛡️ Robust Error Handling**: Utilized Rust's `Result` and `Option` types throughout the backend to gracefully handle potential failures, from network errors to missing API data, ensuring application stability.
+## 🧭 User Flow
 
----
+1. App opens → backend fetches latest release from GitHub.
+2. "Install" button activates when ready.
+3. Modal displays release details for confirmation.
+4. User confirms → animated installation progress.
+5. Backend streams download → frontend displays progress and status.
+6. Success = Animated checkmark with “Installation Complete!”
 
-## ## Command-Line Version Available
+***
 
-Alongside this GUI, a powerful **command-line (CLI) version** of AutoCrate is also available, providing the same core functionality for terminal enthusiasts and automated scripting environments.
+## 🔩 Code Highlights
 
-**[Check out the CLI version here!](https://github.com/SharmaDevanshu089/ac-installer)**
+**Stateful Backend Example:**
 
----
+```rust
+pub struct AppState {
+    pub download_url: Mutex<Option<String>>,
+}
+```
 
-## ## Getting Started
+**Async Fetch Example:**
 
-To run this project locally, follow these steps:
+```rust
+let release = client
+    .get(URL)
+    .header("User-Agent", "AutoCrate Installer")
+    .send()
+    .await?
+    .json::<ReleaseInfo>()
+    .await?;
+```
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/SharmaDevanshu089/ac-installer-gui](https://github.com/SharmaDevanshu089/ac-installer-gui)
-    cd ac-installer-gui
-    ```
+**Frontend Invoking Backend:**
 
-2.  **Install frontend dependencies:**
-    ```bash
-    npm install
-    ```
+```ts
+import { invoke } from "@tauri-apps/api/core";
+await invoke("download_binary");
+```
 
-3.  **Run the development env:**
-    ```bash
-    cargo tauri dev
-    ```
 
----
+***
 
-## ## Future Goals
+## 🧰 Getting Started
 
-* Implement a full in-app download manager with progress bars, handled by the Rust backend.
-* Add logic to support multiple asset types (e.g., `.msi`, `.zip`) or architectures.
-* Explore persistent caching strategies for full offline support.
+### Run Locally
+
+```bash
+git clone https://github.com/SharmaDevanshu089/ac-installer-gui
+cd ac-installer-gui
+npm install
+cargo tauri dev
+```
+
+
+### Build Production Binary
+
+```bash
+cargo tauri build
+```
+
+
+***
+
+## 🧾 Roadmap
+
+- [x] Smart API fetching
+- [x] Reactive Svelte UI
+- [x] Automatic binary detection
+- [ ] Implement real, streaming progress bar
+- [ ] Support for .zip/.msi releases
+- [ ] Cross-platform (Linux/macOS) support
+- [ ] Persistent cache for offline mode
+- [ ] Settings modal (install directory, theme)
+- [ ] Updater logic for AutoCrate CLI
+
+***
+
+## 📸 Visual Demo
+
+
+Here is a look at the AutoCrate Installer in action.
+
+### Screenshot
+
+![Application Screenshot](Screenshot.png)
+
+### Video Demo
+
+To show the video, we use a thumbnail image that links directly to the video file. Click the image below to watch the demo.
+
+[![Watch the Video Demo](Screenshot.png)](video.mp4)
+
+***
+
+## ⚡ Command-Line Version
+
+Prefer the terminal?
+Check out the [AutoCrate CLI](https://github.com/SharmaDevanshu089/ac-installer) — the same fast engine, now scriptable.
+
+***
+
+## 🧑‍💻 Author
+
+**Devanshu Sharma**
+GitHub: [SharmaDevanshu089](https://github.com/SharmaDevanshu089)
+Builds high-quality Rust tools, open-source enthusiast.
+
+***
+
+## 📜 License
+
+MIT License — free to use, modify, and share. See [LICENSE](./LICENSE).
+
+***
+
+## ℹ️ Notes / References
+
+- Powered by Rust for speed and reliability.[^1]
+- Secure and lightweight hybrid desktop app built with Tauri 2.0.[^2]
+- Universal, reactive frontend with SvelteKit and DaisyUI.
+
+***
+
+Copy, customize, and extend! Great docs welcome more users and contributors.
+
+<div align="center">⁂</div>
+
+[^1]: https://www.rust-lang.org
+
+[^2]: https://tauri.app
+
