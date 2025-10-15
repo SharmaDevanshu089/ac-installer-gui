@@ -1,9 +1,5 @@
 # 🚀 AutoCrate Installer GUI
 
-[
-[
-[
-[
 
 A **modern, reactive, and cross-platform desktop installer** for the [AutoCrate CLI](https://github.com/SharmaDevanshu089/ac-installer).
 Built with **Rust + Tauri + SvelteKit + DaisyUI**, this app merges native performance with a smooth, reactive UI.
@@ -137,18 +133,7 @@ cargo tauri build
 
 ## 📸 Visual Demo
 
-
-Here is a look at the AutoCrate Installer in action.
-
-### Screenshot
-
-![Application Screenshot](Screenshot.png)
-
-### Video Demo
-
-To show the video, we use a thumbnail image that links directly to the video file. Click the image below to watch the demo.
-
-[![Watch the Video Demo](Screenshot.png)](video.mp4)
+[![Watch the Gif Demo](gif.gif)](gif.gif)
 
 ***
 
