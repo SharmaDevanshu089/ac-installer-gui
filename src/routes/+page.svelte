@@ -2,8 +2,11 @@
   import { fly, fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
     import { invoke } from '@tauri-apps/api/core';
+	  import { getCurrentWindow } from '@tauri-apps/api/window';
+	    import { openUrl } from '@tauri-apps/plugin-opener';
 
 	let isModalOpen = false;
+	let DoneDialog = false;
 	let version = 'Getting Info';
 	let fileName = '---------';
 	let lastUpdated = '---------';
@@ -17,6 +20,15 @@
 	// let spanForLoading;
 	// spanForLoading.classList.add('loading','loading-spinner','text-primary');
 
+
+  async function openGithub() {
+    await openUrl("https://github.com/SharmaDevanshu089/ac-installer-gui");
+    // await console.log("The Button is Pressed");
+  }
+  async function initiateClose() {
+    const win = getCurrentWindow();
+    await win.close();
+  }
   async function initialiseReleaseData() {
 	installButton.classList.add('loading','loading-spinner','text-primary');
     console.log("Initialising Release Data;")
@@ -51,8 +63,16 @@
         isDownloading = false;
         isInstalling = true;
         currentMessage = "Installing...";
-		await wait(1000)
+		await invoke('add_to_path');
+		await wait(1000);
 		currentMessage = "Done...";
+		await wait(1000);
+		installDone();
+		isInstalling = false;
+		DoneDialog = true;
+	}
+	function installDone(){
+
 	}
 </script>
 
@@ -147,6 +167,45 @@
     <form method="dialog" class="modal-backdrop">
         </form>
 </dialog>
+{#if DoneDialog}
+	<dialog
+		class="modal modal-bottom sm:modal-middle"
+		open
+		transition:fly|global={{ y: -50, duration: 400, easing: quintOut }}
+	>
+		<div class="modal-box text-center">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="w-16 h-16 mx-auto text-success"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+				/>
+			</svg>
+
+			<h3 class="font-bold text-2xl mt-4">Installation Complete!</h3>
+
+			<p class="py-4">
+				You may open Command Prompt and type "autocrate" to setup AutoCrate. Please Star on Github.
+			</p>
+
+			<div class="modal-action justify-center gap-2">
+				<button class="btn btn-ghost" on:click={openGithub}>Open on GitHub</button>
+				<button class="btn btn-primary" on:click={initiateClose}>Close !</button>
+			</div>
+		</div>
+
+		<form method="dialog" class="modal-backdrop">
+			<button on:click={closeSuccessDialog}></button>
+		</form>
+	</dialog>
+{/if}
 <style>
 	.modal-backdrop {
 		background-color: hsl(var(--b2, var(--b1)) / 0.6); /* Use daisyUI theme color with opacity */
