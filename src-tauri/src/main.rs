@@ -9,6 +9,7 @@
 // TODO: Deal with panic in api or it is given above
 // TODO: Add ability to change the installation directory
 // TODO: Use Streaming instead of downloading to ram
+// TODO: Just Implement a Basic Download Verification , like just compare the result return by rust or create a error
 
 mod install;
 
