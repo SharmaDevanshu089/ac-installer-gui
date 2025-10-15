@@ -23,7 +23,8 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             api::get_release_data,
-            install::download_binary
+            install::download_binary,
+            install::add_to_path
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

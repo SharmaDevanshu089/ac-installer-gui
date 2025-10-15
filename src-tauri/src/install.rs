@@ -48,7 +48,8 @@ pub async fn download_binary(state: tauri::State<'_, api::AppState>) -> Result<S
     file.write_all(&content).expect("Error 4");
     Ok("Sucess Download".to_string())
 }
-fn add_to_path() {
+#[tauri::command]
+pub fn add_to_path() {
     let appdata =
         env::var("APPDATA").expect("Unable to get a envirment variable, i hope yours is supported");
     let mut appdata_path = PathBuf::from(appdata.clone());
