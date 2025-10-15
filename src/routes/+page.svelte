@@ -45,6 +45,7 @@
 		console.log("Install Modal Initiate");
 		isDownloading = true;
 		currentMessage = "Donwloading AutoCrate...";
+		await console.log(invoke('download_binary'));
 		await wait(5000);
 		console.log("5 seconds passed. Switching state...");
         isDownloading = false;
@@ -52,7 +53,6 @@
         currentMessage = "Installing...";
 		await wait(1000)
 		currentMessage = "Done...";
-		await console.log(invoke('download_binary'));
 	}
 </script>
 
