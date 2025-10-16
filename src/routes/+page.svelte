@@ -5,6 +5,7 @@
 	  import { getCurrentWindow } from '@tauri-apps/api/window';
 	    import { openUrl } from '@tauri-apps/plugin-opener';
 
+
 	let isModalOpen = false;
 	let DoneDialog = false;
 	let version = 'Getting Info';
@@ -67,12 +68,9 @@
 		await wait(1000);
 		currentMessage = "Done...";
 		await wait(1000);
-		installDone();
 		isInstalling = false;
+		await wait(50);
 		DoneDialog = true;
-	}
-	function installDone(){
-
 	}
 </script>
 
